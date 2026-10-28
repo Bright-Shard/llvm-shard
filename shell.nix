@@ -6,7 +6,7 @@ pkgs.mkShell {
   name = "llvm-shard-devshell";
 
   packages = with pkgs; [
-    clang
+    clang-tools
     cmake
     python3
     ninja
