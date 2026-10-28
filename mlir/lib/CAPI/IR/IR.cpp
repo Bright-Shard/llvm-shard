@@ -20,7 +20,9 @@
 #include "mlir/IR/BuiltinOps.h"
 #include "mlir/IR/Diagnostics.h"
 #include "mlir/IR/Dialect.h"
+#include "mlir/IR/DialectRegistry.h"
 #include "mlir/IR/Location.h"
+#include "mlir/IR/MLIRContext.h"
 #include "mlir/IR/Operation.h"
 #include "mlir/IR/OperationSupport.h"
 #include "mlir/IR/OwningOpRef.h"
@@ -161,6 +163,16 @@ MlirStringRef mlirDialectGetNamespace(MlirDialect dialect) {
 
 MlirDialectRegistry mlirDialectRegistryCreate() {
   return wrap(new DialectRegistry());
+}
+
+MLIR_CAPI_EXPORTED void
+mlirDialectInsertDynamic(MlirDialectRegistry registry, MlirStringRef name,
+                         MlirDynamicDialectPopulator populator) {
+  auto populateDialect = [populator](MLIRContext *ctx,
+                                     DynamicDialect *dialect) {
+    populator(wrap(ctx), wrap((Dialect *)dialect));
+  };
+  unwrap(registry)->insertDynamic(unwrap(name), populateDialect);
 }
 
 void mlirDialectRegistryDestroy(MlirDialectRegistry registry) {
