@@ -24,6 +24,8 @@
 .sw?
 #macOS specific
 .DS_Store
+# direnv
+.direnv
 
 # Ignore the user specified CMake presets in subproject directories.
 /*/CMakeUserPresets.json
