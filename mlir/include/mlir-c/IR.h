@@ -273,8 +273,9 @@ typedef void (*MlirDynamicDialectPopulator)(MlirContext, MlirDialect);
 
 /// Insert a dynamic dialect into a dialect registry.
 MLIR_CAPI_EXPORTED void
-mlirDialectInsertDynamic(MlirDialectRegistry registry, MlirStringRef name,
-                         MlirDynamicDialectPopulator populator);
+mlirDialectRegistryInsertDynamic(MlirDialectRegistry registry,
+                                 MlirStringRef name,
+                                 MlirDynamicDialectPopulator populator);
 
 /// Takes a dialect registry owned by the caller and destroys it.
 MLIR_CAPI_EXPORTED void

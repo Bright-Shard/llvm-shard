@@ -166,8 +166,9 @@ MlirDialectRegistry mlirDialectRegistryCreate() {
 }
 
 MLIR_CAPI_EXPORTED void
-mlirDialectInsertDynamic(MlirDialectRegistry registry, MlirStringRef name,
-                         MlirDynamicDialectPopulator populator) {
+mlirDialectRegistryInsertDynamic(MlirDialectRegistry registry,
+                                 MlirStringRef name,
+                                 MlirDynamicDialectPopulator populator) {
   auto populateDialect = [populator](MLIRContext *ctx,
                                      DynamicDialect *dialect) {
     populator(wrap(ctx), wrap((Dialect *)dialect));
